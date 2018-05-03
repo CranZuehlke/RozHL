@@ -81,6 +81,7 @@ namespace Zuehlke.HoloLens
         private void ResetTarget()
         {
             _target.SetActive(true);
+            Guide.Instance.SetTarget(_target);
             var targetDirection = CameraCache.Main.transform.forward;
             targetDirection.y = 0;
             targetDirection.Normalize();
@@ -112,6 +113,7 @@ namespace Zuehlke.HoloLens
         private void HideDraggables()
         {
             _target.SetActive(false);
+            Guide.Instance.SetTarget(null);
         }
 
         void Update ()
