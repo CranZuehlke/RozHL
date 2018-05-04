@@ -1,0 +1,10 @@
+Assembly-CSharp.dll
+Newtonsoft.Json.dll
+UnityEngine.Analytics.dll
+UnityEngine.Timeline.dll
+nunit.framework.dll
+UnityEngine.UI.dll
+UnityEngine.HoloLens.dll
+UnityEngine.Networking.dll
+GLTFSerializationUWP.dll
+M2Mqtt.WinRT.dll
