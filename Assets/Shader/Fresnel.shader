@@ -2,16 +2,17 @@
 	Properties {
 	 	_Shininess ("Shininess", Range (0.01, 3)) = 1
 
+	 	_Rim ("Rim", Range (0.01, 10)) = 1
+
 	 	_MyColor ("Shine Color", Color) = (1,1,1,1) 
-
-		_MainTex ("Base (RGB)", 2D) = "white" {}
-
-		_Bump ("Bump", 2D) = "bump" {}
 
 	}
 	SubShader {
-		Tags { "RenderType"="Opaque" }
-		LOD 200
+        Tags {"Queue"="Transparent" "RenderType"="Transparent" }
+        LOD 100
+
+        ZWrite On
+        Blend SrcAlpha OneMinusSrcAlpha
 
 		CGPROGRAM
 		#pragma surface surf Lambert
@@ -19,6 +20,7 @@
 		sampler2D _MainTex;
 		sampler2D _Bump;
 		float _Shininess;
+		float _Rim;
 		fixed4 _MyColor; 
 
 		struct Input {
@@ -28,12 +30,12 @@
 		};
 
 		void surf (Input IN, inout SurfaceOutput o) {
-			half4 c = tex2D (_MainTex, IN.uv_MainTex);
 			o.Normal = UnpackNormal(tex2D(_Bump, IN.uv_Bump));
-			half factor = dot(normalize(IN.viewDir),o.Normal);
-			o.Albedo = c.rgb+_MyColor*(_Shininess-factor*_Shininess);
-			o.Emission.rgb = _MyColor*(_Shininess-factor*_Shininess);
-			o.Alpha = c.a;
+			
+ 			half rim = 1.0 - saturate(dot (normalize(IN.viewDir), o.Normal));
+            o.Emission = _MyColor.rgb * pow (rim, _Rim);
+			o.Albedo = o.Emission;
+			o.Alpha = _MyColor.a + rim;
 		}
 		ENDCG
 	} 
