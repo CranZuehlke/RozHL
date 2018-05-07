@@ -19,7 +19,6 @@ public class UpdateBotBos : Singleton<UpdateBotBos>, ITrackableEventHandler {
         {
             IsTracked = false;
         }
-        throw new System.NotImplementedException();
     }
 
     // Use this for initialization
