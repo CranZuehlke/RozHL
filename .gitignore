@@ -36,3 +36,8 @@ Backup/
 BotControl/Library/
 BotControl/UWP/
 BotControl/.vs/
+BotControlIntegrated/.vs/
+BotControlIntegrated/Library/
+BotControlIntegrated/UWP/
+BotControlIntegrated/UWP2/
+BotControlIntegrated/WSA/
