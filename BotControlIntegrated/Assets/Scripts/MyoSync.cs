@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using HoloToolkit.Unity;
 using HoloToolkit.Unity.InputModule;
 using UnityEngine;
-using UnityEngine.VR.WSA.Input;
 using Zuehlke.HoloLens;
 
 namespace Zuehlke.HoloLens
 {
     public class MyoSync : MonoBehaviour
     {
+        public MyoInterface Myo;
         public GameObject DragHint;
 
         public GameObject TargetPrefab;
@@ -33,9 +33,10 @@ namespace Zuehlke.HoloLens
 
         public bool InSync { get; private set; }
 
+        private MyoConnection.Pose _lastPose = MyoConnection.Pose.Unknown;
+
         void Start()
         {
-            MyoConnection.Instance.OnMyoConnected += OnMyoConnected;
             var gravityPoint = new GameObject("GravityPoint");
             gravityPoint.transform.SetParent(transform, false);
             _gravityPoint = gravityPoint.transform;
@@ -57,8 +58,6 @@ namespace Zuehlke.HoloLens
 
         private void OnMyoConnected()
         {
-            _connected = true;
-            MyoConnection.Instance.OnPoseChanged += OnHandPoseChanged;
             _target = Instantiate(TargetPrefab);
             StartMyoSync();
         }
@@ -94,7 +93,7 @@ namespace Zuehlke.HoloLens
 
         private void PerformMyoSync()
         {
-            var myoEstimateX = MyoConnection.Instance.MyoArm == MyoConnection.Arm.Left ? -0.2f : 0.2f;
+            var myoEstimateX = Myo.Arm == MyoConnection.Arm.Left ? -0.2f : 0.2f;
             var myoPositionEstimate = CameraCache.Main.transform.TransformPoint(myoEstimateX, -0.4f, 0.2f);
             var myoToTarget = _target.transform.position - myoPositionEstimate;
             myoToTarget.y = 0;
@@ -126,6 +125,19 @@ namespace Zuehlke.HoloLens
             if (_connected)
             {
 //                UpdateAccelerometer();
+                if (Myo.Pose != _lastPose)
+                {
+                    OnHandPoseChanged(Myo.Pose);
+                    _lastPose = Myo.Pose;
+                }
+            }
+            else
+            {
+                if (Myo.Connected)
+                {
+                    _connected = true;
+                    OnMyoConnected();
+                }
             }
         }
 
@@ -136,7 +148,7 @@ namespace Zuehlke.HoloLens
             forward.Normalize();
             var right = Vector3.Cross(Vector3.up, forward);
             var armOffset =
-                right * ArmOffsetRightHanded.x * ((MyoConnection.Instance.MyoArm == MyoConnection.Arm.Left) ? -1 : 1)
+                right * ArmOffsetRightHanded.x * ((Myo.Arm == MyoConnection.Arm.Left) ? -1 : 1)
                 + Vector3.up * ArmOffsetRightHanded.y
                 + forward * ArmOffsetRightHanded.z;
             ArmOrientationTransform.position = CameraCache.Main.transform.position + armOffset;
@@ -146,7 +158,7 @@ namespace Zuehlke.HoloLens
 
         private void UpdateAccelerometer()
         {
-            var myoAcceleration = MyoConnection.Instance.Accelerometer;
+            var myoAcceleration = Myo.Accelerometer;
 
             if (myoAcceleration.sqrMagnitude >= 0.0001f)
             {

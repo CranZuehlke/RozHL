@@ -2,22 +2,22 @@
 using System.Collections.Generic;
 using HoloToolkit.Unity.SpatialMapping;
 using UnityEngine;
-using UnityEngine.VR.WSA.Input;
 using Zuehlke.HoloLens;
 
 public class Pointer : MonoBehaviour
 {
-    public MyoConnection Myo;
+    public MyoInterface Myo;
 
     public GameObject Cursor;
     private MorphArrow _morphArrow;
     public static Pointer Instance { get; private set; }
 
+    private MyoConnection.Pose _lastPose = MyoConnection.Pose.Unknown;
+
     void Awake()
     {
         Instance = this;
         _morphArrow = Cursor.GetComponentInChildren<MorphArrow>();
-        Myo.OnPoseChanged += OnMyoPose;
     }
 
     private void OnMyoPose(MyoConnection.Pose newpose)
@@ -37,6 +37,11 @@ public class Pointer : MonoBehaviour
             {
                 Cursor.transform.position = hitInfo.point;
             }
+        }
+        if (Myo.Pose != _lastPose)
+        {
+            OnMyoPose(Myo.Pose);
+            _lastPose = Myo.Pose;
         }
     }
 

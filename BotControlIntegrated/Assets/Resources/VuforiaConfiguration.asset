@@ -3,16 +3,17 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d76b89ff4afc5a04195eab54bc63d331, type: 3}
+  m_Script: {fileID: -2067402452, guid: bab6fa851cf5a1a4bba3cec5f191cb8e, type: 3}
   m_Name: VuforiaConfiguration
   m_EditorClassIdentifier: 
   vuforia:
-    vuforiaLicenseKey: AY6brUP/////AAADmbpalLecAUN4mTsRIQmYCXsFU3WizTTh4tWcYpOs4fHqbVInI1G9FANcepFBNSDE0TEhQxtHh0JRTj9WLgz69YUURjE2QcvWrkcSpPuYvttsXjERHIWgpx6bq7pSfufrT5bHeBG6irDREWNW9B4bdAOww+mO/VLO6lynU1RsAY+mPqZWd9gDptBrb5lYGhDeHNrTpPO1cao6gapgRpOv/EAKQa9WR8SDCEKEsb+5dis17PvHFZXSDaqN5NBrU3FUVxcaGv308K6YmCMi4sJLurmcw6x+GwAwZUiMKonQhEfTkhABZk4yySTdhK3NgPXgr9dNKlV5clpbqiOzlEvI7NFrGET9AEjy90sC8EN23G50
+    vuforiaLicenseKey: AXLuMwH/////AAABGcIJ+oJBq06Ji91FQfOBr1UpL43VR4t9ohq40dTZoVwYQmw2R6647fOECJETFNJWArFFW7LnyWmDNxUPCTA7oqhdt/qg3EAVTOro1EExfMCRXylLoTXOp25qGTtzbQC9xCgTYGIh2jqZ9KZOSTkH8+iFaAfmQMymr5HzwVxtgtypKnVDCE1jELvxLYdvWybcOzswjX/lNEKUMvAorbqriACXvshSZYNTvA8BRouKqj+FrvbjsDQIIeJ2dg67tqEy7R88+U0S1K8KTdy3+s4/+qQgu+jAInT0P7qZSaR8syGz28frPM/F127x/Sf+XWKiP4PvAYuJC1K8+l1ibS/ZAd21QrMePGcGSQNiVn5NR3Ax
+    ufoLicenseKey: QVg5aFdKbi8vLy8vQUFBQUtCMW5nemYvbUVJUmlqTUptenlNZ1NOWmdBTjNvSCtzR0pUMHlWLzk0Q3o1bWdva25nV2FQTXYybEx4QVdkbnVCNVpsWlJua0h3SDNGLzFCTW5nY1g3NHhTdU1QeW02ZDFrbTQzMWg1MHRUSXI2TTNaMWttUnN6ZDlPcTUybWVpM0Z3NTVWWlpUNnNtaHluMVNDOExHc1dqWURyRjZGYmxMZEplZEQzZlQrbGxCcDJQdjU3NG1xNDQxdzlFKzYrVDJYc1lMSVVCLzVmVTdpblJTcGxCY0MrSUVoWUloamFFeGpmbnJXbGFxSElES0ZtTlFuNXEwMkkvU3piZ1BQR2YxR2NjOUUyZS93TDZoR3R1dWlob3V4S2dSWW42b09mQTI1MnB0c0JEd1NycGpISjV0R2w0WHo1RjRrdVRxU3ltWTk0eGljQ1I0QUFiVVA2RGxVa1lRbUppNzhkYm9KSWYzaS9mcE5jWUVRSWU=
     delayedInitialization: 0
     cameraDeviceModeSetting: -1
     maxSimultaneousImageTargets: 1
@@ -22,7 +23,6 @@ MonoBehaviour:
     mirrorVideoBackground: 0
   digitalEyewear:
     cameraOffset: 0.06
-    distortionRenderingMode: 2
     distortionRenderingLayer: 31
     eyewearType: 1
     stereoFramework: 0
@@ -42,27 +42,24 @@ MonoBehaviour:
       DistortionCoefficients: {x: 0, y: 0}
       FieldOfView: {x: 0, y: 0, z: 0, w: 0}
       ContainsMagnet: 0
-  databaseLoad:
-    dataSetsToLoad:
-    - TurtleBot
-    dataSetsToActivate:
-    - TurtleBot
   videoBackground:
     clippingMode: 0
-    matteShader: {fileID: 4800000, guid: f84e93cca971cda47a225f4c6a4156c9, type: 3}
+    numDivisions: 2
+    videoBackgroundShader: {fileID: 15311, guid: 0000000000000000f000000000000000,
+      type: 0}
+    matteShader: {fileID: 15310, guid: 0000000000000000f000000000000000, type: 0}
     videoBackgroundEnabled: 1
-  smartTerrainTracker:
-    autoInitTracker: 0
-    autoStartTracker: 0
-    autoInitBuilder: 0
-    sceneUnitsToMillimeter: 0
   deviceTracker:
     autoInitTracker: 0
     autoStartTracker: 0
+    trackingMode: 0
     posePrediction: 0
     modelCorrectionMode: 0
     modelTransformEnabled: 0
     modelTransform: {x: 0, y: 0.1, z: -0.1}
+  smartTerrain:
+    autoInitTracker: 0
+    autoStartTracker: 0
   webcam:
     deviceNameSetInEditor: 
     flipHorizontally: 0
